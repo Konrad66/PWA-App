@@ -51,7 +51,7 @@ app.post('/api/users', async (req, res) => {
 
 // Start serwera
 app.listen(PORT, () => {
-    console.log(`Serwer nasłuchuje na porcie ${PORT}.`);
+    console.log(`Serwer nasłuchuje na porcie http://localhost:${PORT}`);
 });
 
 
