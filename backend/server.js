@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 
 // Połączenie z bazą danych MongoDB
-mongoose.connect('mongodb://localhost:27017/myapp')  // Usuń useNewUrlParser i useUnifiedTopology
+mongoose.connect('twoje-mongodb-atlas-uri')  // Usuń useNewUrlParser i useUnifiedTopology
     .then(() => console.log('Połączono z bazą danych MongoDB.'))
     .catch((error) => console.error('Błąd połączenia z MongoDB:', error));
 
