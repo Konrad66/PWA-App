@@ -1,4 +1,6 @@
 // server.js
+
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -6,13 +8,13 @@ const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 
-
 app.use(cors());
+
 // Połączenie z bazą danych MongoDB
-mongoose.connect('mongodb://localhost:27017/myapp', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+mongoose.connect('mongodb://localhost:27017/myapp')  // Usuń useNewUrlParser i useUnifiedTopology
+    .then(() => console.log('Połączono z bazą danych MongoDB.'))
+    .catch((error) => console.error('Błąd połączenia z MongoDB:', error));
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Błąd połączenia z MongoDB:'));
 db.once('open', () => {
@@ -51,3 +53,57 @@ app.post('/api/users', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Serwer nasłuchuje na porcie ${PORT}.`);
 });
+
+
+// const express = require('express');
+// const mongoose = require('mongoose');
+// const bodyParser = require('body-parser');
+// const app = express();
+// const cors = require('cors');
+// const PORT = process.env.PORT || 3000;
+//
+//
+// app.use(cors());
+// // Połączenie z bazą danych MongoDB
+// mongoose.connect('mongodb://localhost:27017/myapp', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// });
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'Błąd połączenia z MongoDB:'));
+// db.once('open', () => {
+//     console.log('Połączono z bazą danych MongoDB.');
+// });
+//
+// // Definicja schematu użytkownika
+// const userSchema = new mongoose.Schema({
+//     username: String,
+//     password: String
+// });
+// const User = mongoose.model('User', userSchema);
+//
+// app.use(bodyParser.json());
+//
+// // Dodaj nowego użytkownika
+// app.post('/api/users', async (req, res) => {
+//     const { username, password } = req.body;
+//
+//     try {
+//         const existingUser = await User.findOne({ username });
+//         if (existingUser) {
+//             return res.status(400).json({ message: 'Użytkownik już istnieje.' });
+//         }
+//
+//         const newUser = new User({ username, password });
+//         await newUser.save();
+//         res.status(201).json({ message: 'Utworzono nowego użytkownika.' });
+//     } catch (error) {
+//         console.error('Błąd podczas tworzenia użytkownika:', error);
+//         res.status(500).json({ message: 'Wystąpił błąd podczas tworzenia użytkownika.' });
+//     }
+// });
+//
+// // Start serwera
+// app.listen(PORT, () => {
+//     console.log(`Serwer nasłuchuje na porcie ${PORT}.`);
+// });
